@@ -5,6 +5,7 @@ paginate: 1
 paginate_path: "/page:num/"
 baseurl: ""
 permalink: pretty
+tagline: Software Engineer
 
 # Gems
 plugins:

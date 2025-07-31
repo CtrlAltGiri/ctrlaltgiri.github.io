@@ -30,9 +30,7 @@
   --blue-400: #4dabf7;
   --yellow-100: #fff3bf;
 
-  --body-font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
-    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --body-font: "Schibsted Grotesk", sans-serif;
   --body-font-size: 20px;
   --body-line-height: 1.5;
   --body-color: var(--gray-700);
@@ -74,11 +72,11 @@
 
 // Dark Poole theme
 [data-theme="dark-poole"] {
-  --body-color: var(--dark-poole-002);
-  --body-bg: var(--dark-poole-001);
-  --heading-color: var(--dark-poole-002);
-  --link-color: var(--dark-poole-link-color);
-  --link-hover-color: var(--dark-poole-link-hover);
+  --body-color: #fff;
+  --body-bg: #000;
+  --heading-color: #fff;
+  --link-color: #fff;
+  --link-hover-color: #ccc;
   --border-color: rgba(255, 255, 255, 0.15);
-  --code-bg: var(--gray-900);
+  --code-bg: #000;
 }
