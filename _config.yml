@@ -42,11 +42,11 @@ version: 3.0.0
 
 # Navbar page list
 nav:
+  - title: About
+    url: /1999/07/24/introduction
+
   - title: Blog
     url: /archive
-
-  - title: About
-    url: /about
 
   - title: Work
     url: /work
