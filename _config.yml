@@ -3,7 +3,7 @@ title: Giridhar Balachandran
 url: https://ctrlaltgiri.github.io
 paginate: 1
 paginate_path: "/page:num/"
-baseurl: "/"
+baseurl: ""
 permalink: pretty
 
 # Gems
@@ -42,11 +42,5 @@ version: 3.0.0
 
 # Navbar page list
 nav:
-  - title: About
-    url: /1999/07/24/introduction
-
   - title: Blog
     url: /archive
-
-  - title: Work
-    url: /work
