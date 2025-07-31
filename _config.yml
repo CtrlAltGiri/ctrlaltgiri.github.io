@@ -1,9 +1,9 @@
 # Setup
-title: Dark Poole
-url: https://andrewhwanpark.github.io/dark-poole
+title: Giridhar Balachandran
+url: https://ctrlaltgiri.github.io
 paginate: 1
-paginate_path: "/dark-poole/page:num/"
-baseurl: "/dark-poole"
+paginate_path: "/page:num/"
+baseurl: "/"
 permalink: pretty
 
 # Gems
@@ -33,9 +33,9 @@ sass:
 
 # Specify the author for blog posts
 author:
-  name: Mark Otto
-  url: https://twitter.com/mdo
-  email: markdotto@gmail.com
+  name: Giridhar Balachandran
+  url: https://twitter.com/ctrlaltgiri
+  email: gb555@cornell.edu
 
 # Custom vars
 version: 3.0.0
@@ -46,4 +46,7 @@ nav:
     url: /dark-poole/archive
 
   - title: About
-    url: /dark-poole/about
+    url: /about
+
+  - title: Work
+    url: /work
