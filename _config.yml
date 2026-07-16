@@ -5,7 +5,6 @@ tagline: currently deploying software
 location: taking ai to the deep, dark corners of the world.
 baseurl: ""
 url: "https://ctrlaltgiri.github.io"
-secret_path: "/814e6bcc41679ddd4302c312b459cde7eb0a340d537c83a8e37512d84f91f2af/"
 
 markdown: kramdown
 kramdown:
