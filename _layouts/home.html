@@ -1,0 +1,93 @@
+---
+layout: default
+---
+
+<main class="site-shell homepage">
+  <article class="article">
+    <header>
+      <h1>{{ site.name | default: site.title }}</h1>
+      <p>{{ page.tagline | default: site.tagline }}</p>
+    </header>
+    <p>{{ page.location | default: site.location }}</p>
+  </article>
+
+  <section class="post-list">
+    <h2 class="post-list-title">Work</h2>
+    <nav class="work-links" aria-label="Work">
+      <a href="https://linkedin.com/in/giridharbalachandran" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://github.com/CtrlAltGiri" target="_blank" rel="noopener">GitHub</a>
+    </nav>
+    <form class="secret-form" id="secret-form" autocomplete="off">
+      <input
+        id="secret-input"
+        type="password"
+        placeholder="password"
+        autocomplete="off"
+        spellcheck="false"
+      />
+      <p class="secret-error" id="secret-error">nope</p>
+    </form>
+  </section>
+
+  <section class="post-list">
+    <h2 class="post-list-title">Notes</h2>
+    <ul class="post-list-items">
+      {% assign notes = site.notes | sort: 'date' | reverse %}
+      {% for note in notes %}
+        <li class="post-list-item">
+          <a href="{{ note.url | relative_url }}" aria-label="{{ note.title | escape }}" class="post-list-link">
+            <span class="post-list-link-title">{{ note.title | escape }}</span>
+            <time class="post-list-link-date" datetime="{{ note.date | date: "%Y-%m-%d" }}">{{ note.date | date: "%B %d, %Y" }}</time>
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+  </section>
+
+  <footer class="site-footer">
+    <p>CS @ Cornell. Prev. Microsoft, Zamp.</p>
+  </footer>
+</main>
+
+<script>
+(function () {
+  const form = document.getElementById('secret-form');
+  const input = document.getElementById('secret-input');
+  const error = document.getElementById('secret-error');
+  const secretUrl = '{{ site.secret_path | relative_url }}';
+
+  function toggleForm() {
+    form.classList.toggle('is-visible');
+    if (form.classList.contains('is-visible')) {
+      input.focus();
+    } else {
+      input.value = '';
+      error.classList.remove('is-visible');
+    }
+  }
+
+  document.addEventListener('keydown', function (e) {
+    if ((e.metaKey || e.ctrlKey) && e.shiftKey && e.key.toLowerCase() === 'g') {
+      if (e.target.tagName === 'INPUT') return;
+      e.preventDefault();
+      toggleForm();
+    }
+  });
+
+  input.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      if (input.value === 'taste') {
+        window.location.href = secretUrl;
+      } else {
+        input.value = '';
+        error.classList.add('is-visible');
+      }
+    }
+  });
+
+  input.addEventListener('input', function () {
+    error.classList.remove('is-visible');
+  });
+})();
+</script>
