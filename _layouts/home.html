@@ -54,7 +54,13 @@ layout: default
   const form = document.getElementById('secret-form');
   const input = document.getElementById('secret-input');
   const error = document.getElementById('secret-error');
-  const secretUrl = '{{ site.secret_path | relative_url }}';
+
+  async function sha256Hex(str) {
+    const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+    return Array.from(new Uint8Array(buf)).map(function (b) {
+      return b.toString(16).padStart(2, '0');
+    }).join('');
+  }
 
   function toggleForm() {
     form.classList.toggle('is-visible');
@@ -74,16 +80,24 @@ layout: default
     }
   });
 
-  input.addEventListener('keydown', function (e) {
-    if (e.key === 'Enter') {
-      e.preventDefault();
-      if (input.value === 'taste') {
-        window.location.href = secretUrl;
-      } else {
-        input.value = '';
-        error.classList.add('is-visible');
+  input.addEventListener('keydown', async function (e) {
+    if (e.key !== 'Enter') return;
+    e.preventDefault();
+    if (!input.value) return;
+
+    const hash = await sha256Hex(input.value);
+    const target = '{{ site.baseurl }}/' + hash + '/';
+
+    try {
+      const res = await fetch(target, { method: 'HEAD' });
+      if (res.ok) {
+        window.location.href = target;
+        return;
       }
-    }
+    } catch (err) {}
+
+    input.value = '';
+    error.classList.add('is-visible');
   });
 
   input.addEventListener('input', function () {
