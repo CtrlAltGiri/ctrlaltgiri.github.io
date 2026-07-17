@@ -4,3 +4,6 @@ _site
 .jekyll-metadata
 vendor
 .bundle
+
+# Plaintext secret sources — never commit; only the encrypted _data/vault.json is committed.
+_secret/

@@ -1,18 +1,48 @@
 ---
-layout: default
 title: taste
-description: Taste profile.
-permalink: "/4bfb7d691591e49e544c2c4bf7978f600a2ed114f9422415403f4327d7f6266f/"
+permalink: /taste/
 robots: noindex, nofollow
+sitemap: false
 ---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>taste</title>
+  <style>
+    html, body { margin: 0; height: 100%; }
+    #vault-frame { border: 0; width: 100%; height: 100vh; }
+    #vault-msg { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; padding: 2rem; }
+  </style>
+</head>
+<body>
+  <p id="vault-msg">unlocking…</p>
+  <iframe id="vault-frame" title="taste" hidden></iframe>
 
-<main class="site-shell article-shell">
-  <a href="{{ '/' | relative_url }}" class="article-back">← Home</a>
-  <article class="article">
-    <header>
-      <h1>taste</h1>
-    </header>
-    <p>coming soon.</p>
-  </article>
-</main>
-<!-- . -->
+  <script src="{{ '/assets/js/vault.js' | relative_url }}"></script>
+  <script>
+    (function () {
+      const PAYLOAD = {{ site.data.vault | jsonify }};
+      const msg = document.getElementById('vault-msg');
+      const frame = document.getElementById('vault-frame');
+      const key = sessionStorage.getItem('vaultKey');
+
+      if (!key) {
+        msg.textContent = 'nope';
+        return;
+      }
+
+      Vault.decrypt(key, PAYLOAD).then(function (html) {
+        frame.srcdoc = html;
+        frame.hidden = false;
+        msg.hidden = true;
+      }).catch(function () {
+        sessionStorage.removeItem('vaultKey');
+        msg.textContent = 'nope';
+      });
+    })();
+  </script>
+</body>
+</html>

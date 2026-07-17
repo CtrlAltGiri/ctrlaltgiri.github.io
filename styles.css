@@ -523,13 +523,13 @@ p {
   border-color: #999;
 }
 
-.secret-error {
+.secret-status {
   display: none;
   color: var(--site-muted);
   font-size: 0.75rem;
   margin-top: 0.25rem;
 }
 
-.secret-error.is-visible {
+.secret-status.is-visible {
   display: block;
 }
