@@ -1,0 +1,8 @@
+{
+  "name": "ctrlaltgiri.github.io",
+  "private": true,
+  "description": "Personal site tooling.",
+  "scripts": {
+    "encrypt": "node scripts/encrypt.js"
+  }
+}

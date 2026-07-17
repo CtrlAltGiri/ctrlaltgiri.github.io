@@ -533,3 +533,14 @@ p {
 .secret-error.is-visible {
   display: block;
 }
+
+.secret-status {
+  display: none;
+  color: var(--site-muted);
+  font-size: 0.75rem;
+  margin-bottom: 0.25rem;
+}
+
+.secret-status.is-visible {
+  display: block;
+}

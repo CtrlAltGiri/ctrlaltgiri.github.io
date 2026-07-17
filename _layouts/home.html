@@ -18,6 +18,7 @@ layout: default
       <a href="https://github.com/CtrlAltGiri" target="_blank" rel="noopener">GitHub</a>
     </nav>
     <form class="secret-form" id="secret-form" autocomplete="off">
+      <p class="secret-status" id="secret-status" aria-live="polite"></p>
       <input
         id="secret-input"
         type="password"
@@ -25,7 +26,6 @@ layout: default
         autocomplete="off"
         spellcheck="false"
       />
-      <p class="secret-error" id="secret-error">nope</p>
     </form>
   </section>
 
@@ -49,17 +49,18 @@ layout: default
   </footer>
 </main>
 
+<script src="{{ '/assets/js/vault.js' | relative_url }}"></script>
 <script>
 (function () {
   const form = document.getElementById('secret-form');
   const input = document.getElementById('secret-input');
-  const error = document.getElementById('secret-error');
+  const status = document.getElementById('secret-status');
+  const PAYLOAD = {{ site.data.vault | jsonify }};
+  const target = '{{ '/taste/' | relative_url }}';
 
-  async function sha256Hex(str) {
-    const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
-    return Array.from(new Uint8Array(buf)).map(function (b) {
-      return b.toString(16).padStart(2, '0');
-    }).join('');
+  function setStatus(msg) {
+    status.textContent = msg;
+    status.classList.toggle('is-visible', Boolean(msg));
   }
 
   function toggleForm() {
@@ -68,7 +69,7 @@ layout: default
       input.focus();
     } else {
       input.value = '';
-      error.classList.remove('is-visible');
+      setStatus('');
     }
   }
 
@@ -85,23 +86,22 @@ layout: default
     e.preventDefault();
     if (!input.value) return;
 
-    const hash = await sha256Hex(input.value);
-    const target = '{{ site.baseurl }}/' + hash + '/';
-
+    const password = input.value;
     try {
-      const res = await fetch(target, { method: 'HEAD' });
-      if (res.ok) {
-        window.location.href = target;
-        return;
-      }
-    } catch (err) {}
-
-    input.value = '';
-    error.classList.add('is-visible');
+      // Correct password => AES-GCM auth succeeds. We don't store any hash;
+      // the successful decrypt is itself the proof the password is right.
+      await Vault.decrypt(password, PAYLOAD);
+      setStatus('unlocking…');
+      sessionStorage.setItem('vaultKey', password);
+      window.location.href = target;
+    } catch (err) {
+      input.value = '';
+      setStatus('nope');
+    }
   });
 
   input.addEventListener('input', function () {
-    error.classList.remove('is-visible');
+    setStatus('');
   });
 })();
 </script>
